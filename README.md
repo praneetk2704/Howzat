@@ -50,4 +50,6 @@ Since the primary notification did not have enogh space to show the match status
 **SAMPLE USER INPUT** <br /> <br />
 ![image](https://user-images.githubusercontent.com/29803330/46864572-70289b80-ce38-11e8-97ea-948523ba773e.png) <br /> <br />
 
+**NOTE : You can also set the icon which appears along with the notifications. For the cricket icon, download 'Cricket.ico' from this repository and copy it in the same path as the script. For your own custom icons, download a .ico file from the internet and set it's path in the 'toaster.show_toast()' in lines 119, 123, 143 and 147 of 'Howzat.py' under the argument 'icon_path'.** <br /> <br />
+![image](https://user-images.githubusercontent.com/29803330/46865320-c1398f00-ce3a-11e8-8e6e-374ad72eb8c6.png) <br /> <br />
 That's it. You can cheer for your favourite team now!! :)
