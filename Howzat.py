@@ -8,7 +8,6 @@
 import os
 import requests
 from zipfile import ZipFile
-
 import time
 import re
 from win10toast import ToastNotifier
@@ -34,11 +33,10 @@ path = os.path.join(parent_dir, directory)
 # Create the directory
 # 'Chromedriver' in
 # 'c:/'
-os.mkdir(path)
-print("Directory '% s' created" % directory)
-
-
-url = 'https://chromedriver.storage.googleapis.com/96.0.4664.45/chromedriver_win32.zip'
+try: 
+    os.mkdir(path) 
+except OSError as error: 
+    print(Dirctory alredy exit going to next step!)
 
 print('Downloading all the files now...')
 print('Downloading ...............0%')
@@ -48,8 +46,12 @@ print('Downloading ...............54%')
 print('Downloading ...............98%')
 print('Downloading ...............99%')
 print('Downloading ...............100%')
-print('Downloading Completed')
+
+url = 'https://chromedriver.storage.googleapis.com/96.0.4664.45/chromedriver_win32.zip'
+
 myfile = requests.get(url, allow_redirects=True)
+
+print('Downloading Completed')
 
 open('c:/Chromedriver/chromedriver_win32.zip', 'wb').write(myfile.content)
 
@@ -65,29 +67,30 @@ with ZipFile(file_name, 'r') as zip:
 
 	# extracting all the files
 	print('Extracting all the files now...')
-	zip.extractall('c:/Chromedriver/')
-	print('Done!')
-
+try:
+    zip.extractall('c:/Chromedriver/')
+except:
+    print('Extraction already Completed!')
 
 
 # ------------------  USER INPUT -------------------- #
 
-url = ""
+url = "https://www.cricbuzz.com/"
 
 ''' How frequently you want the updates. Basically the script will crawl the page after every 'time_interval' seconds
     specified. Recommended to keep >= 10. '''
 time_interval = '15'
 
-''' Set either 'Y' or 'N' for the below Eight options. '''
+''' Set either 'Y' or 'N' for the below five options. '''
 
-show_match_status = ''
-show_fours = ''
-show_sixes = ''
-show_wickets = ''
-show_EndOfOver = ''
-show_singles = ''
-show_dot = ''
-show_Balls = ''
+show_match_status = 'Y'
+show_fours = 'Y'
+show_sixes = 'Y'
+show_wickets = 'Y'
+show_EndOfOver = 'Y'
+show_singles = 'Y'
+show_dot = 'Y'
+show_Balls = 'Y'
 
 ''' Stores the runs, wickets and overs scored before and after a ball. '''
 prev_numbers = [0, 0, 0, 0]                           # Do not change
@@ -99,7 +102,7 @@ capa = DesiredCapabilities.CHROME
 capa["pageLoadStrategy"] = "none"                     # Enable explicit wait.
 options = webdriver.ChromeOptions()
 options.add_argument('--start-maximized')             # Start Chrome maximized.
-driver = webdriver.Chrome('E:\Python\chromedriver.exe', desired_capabilities=capa, chrome_options=options)  # Arguments
+driver = webdriver.Chrome('C:\Chromedriver\chromedriver.exe', desired_capabilities=capa, chrome_options=options)  # Arguments
 driver.get(url)
 
 time.sleep(15)
@@ -229,3 +232,5 @@ while 0 == 0:                                                                   
     time.sleep(int(time_interval))               # Crawl again after the given time interval.
 
 driver.quit()                                    # Quit the browser.
+
+
