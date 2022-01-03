@@ -1,17 +1,81 @@
 # Author
 # Praneet Kumar, B.Tech CSE
 # NIT Silchar, Class of 2019
+# Editor
+# Rakesh Reddy, B.Tech PET
+# GIET College of Engineering(JNTUK)
 
+import os
+import requests
+from zipfile import ZipFile
 import time
 import re
 from win10toast import ToastNotifier
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+# ------------------  OS FOLDER CREATE  -------------------- #
+
+# Python program to explain os.mkdir() method
+# importing os module
+#importing requests
+# importing required modules
+
+# Directory
+directory = "Chromedriver"
+
+# Parent Directory path
+parent_dir = "c:/"
+
+# Path
+path = os.path.join(parent_dir, directory)
+
+# Create the directory
+# 'Chromedriver' in
+# 'c:/'
+try: 
+    os.mkdir(path) 
+except OSError as error: 
+    print(Dirctory alredy exit going to next step!)
+
+print('Downloading all the files now...')
+print('Downloading ...............0%')
+print('Downloading ...............5%')
+print('Downloading ...............38%')
+print('Downloading ...............54%')
+print('Downloading ...............98%')
+print('Downloading ...............99%')
+print('Downloading ...............100%')
+
+url = 'https://chromedriver.storage.googleapis.com/96.0.4664.45/chromedriver_win32.zip'
+
+myfile = requests.get(url, allow_redirects=True)
+
+print('Downloading Completed')
+
+open('c:/Chromedriver/chromedriver_win32.zip', 'wb').write(myfile.content)
+
+
+
+# specifying the zip file name
+file_name = "c:/Chromedriver/chromedriver_win32.zip"
+
+# opening the zip file in READ mode
+with ZipFile(file_name, 'r') as zip:
+	# printing all the contents of the zip file
+	zip.printdir()
+
+	# extracting all the files
+	print('Extracting all the files now...')
+try:
+    zip.extractall('c:/Chromedriver/')
+except:
+    print('Extraction already Completed!')
+
 
 # ------------------  USER INPUT -------------------- #
 
-url = ""
+url = "https://www.cricbuzz.com/"
 
 ''' How frequently you want the updates. Basically the script will crawl the page after every 'time_interval' seconds
     specified. Recommended to keep >= 10. '''
@@ -19,11 +83,14 @@ time_interval = '15'
 
 ''' Set either 'Y' or 'N' for the below five options. '''
 
-show_match_status = ''
-show_fours = ''
-show_sixes = ''
-show_wickets = ''
-show_EndOfOver = ''
+show_match_status = 'Y'
+show_fours = 'Y'
+show_sixes = 'Y'
+show_wickets = 'Y'
+show_EndOfOver = 'Y'
+show_singles = 'Y'
+show_dot = 'Y'
+show_Balls = 'Y'
 
 ''' Stores the runs, wickets and overs scored before and after a ball. '''
 prev_numbers = [0, 0, 0, 0]                           # Do not change
@@ -35,7 +102,7 @@ capa = DesiredCapabilities.CHROME
 capa["pageLoadStrategy"] = "none"                     # Enable explicit wait.
 options = webdriver.ChromeOptions()
 options.add_argument('--start-maximized')             # Start Chrome maximized.
-driver = webdriver.Chrome('E:\Python\chromedriver.exe', desired_capabilities=capa, chrome_options=options)  # Arguments
+driver = webdriver.Chrome('C:\Chromedriver\chromedriver.exe', desired_capabilities=capa, chrome_options=options)  # Arguments
 driver.get(url)
 
 time.sleep(15)
@@ -131,11 +198,20 @@ while 0 == 0:                                                                   
         if curr_numbers[0] == prev_numbers[0] + 6 and show_sixes == 'Y':      # If there is an increment of 6 runs.
             info = "It's a SIX!! "
             flag = 1
+        if curr_numbers[0] == prev_numbers[0] + 1 and show_singles == 'Y':      # If there is an increment of 1 run.
+            info = "It's a SINGLE!! "
+            flag = 1
+        if curr_numbers[0] == prev_numbers[0] + 0 and show_dot == 'Y':      # If there is no change with 0 run.
+            info = "It's a DOT BALL!! "
+            flag = 1
         if curr_numbers[1] == prev_numbers[1] + 1 and show_wickets == 'Y':    # If there is an increment of 1 wicket.
             info += "It's a WICKET!! "
             flag = 1
         if curr_numbers[2] == prev_numbers[2] + 1 and show_EndOfOver == 'Y':  # If there is an increment of 1 over.
             info += "END OF OVER!!"
+            flag = 1
+        if curr_numbers[3] == prev_numbers[3] + 1 and show_Balls == 'Y':  # If there is an increment of 1 ball.
+            info += "Ball!!"
             flag = 1
 
         ''' If any of the above conditions are true, show the Win10 notifications. '''
@@ -156,3 +232,5 @@ while 0 == 0:                                                                   
     time.sleep(int(time_interval))               # Crawl again after the given time interval.
 
 driver.quit()                                    # Quit the browser.
+
+
