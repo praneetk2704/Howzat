@@ -75,7 +75,7 @@ except:
 
 # ------------------  USER INPUT -------------------- #
 
-url = ""
+url = "https://www.cricbuzz.com/"
 
 ''' How frequently you want the updates. Basically the script will crawl the page after every 'time_interval' seconds
     specified. Recommended to keep >= 10. '''
@@ -83,14 +83,14 @@ time_interval = '15'
 
 ''' Set either 'Y' or 'N' for the below five options. '''
 
-show_match_status = ''
-show_fours = ''
-show_sixes = ''
-show_wickets = ''
-show_EndOfOver = ''
-show_singles = ''
-show_dot = ''
-show_Balls = ''
+show_match_status = 'Y'
+show_fours = 'Y'
+show_sixes = 'Y'
+show_wickets = 'Y'
+show_EndOfOver = 'Y'
+show_singles = 'Y'
+show_dot = 'Y'
+show_Balls = 'Y'
 
 ''' Stores the runs, wickets and overs scored before and after a ball. '''
 prev_numbers = [0, 0, 0, 0]                           # Do not change
